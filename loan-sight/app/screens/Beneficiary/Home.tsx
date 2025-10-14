@@ -7,6 +7,7 @@ import {
   RefreshControl,
   TouchableOpacity,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { LoanCard } from '../../../components/LoanCard';
 import { EvidenceCard } from '../../../components/EvidenceCard';
@@ -58,7 +59,7 @@ export const BeneficiaryHome: React.FC<BeneficiaryHomeProps> = ({ navigation }) 
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: themeColors.bg }]}>
+    <SafeAreaView style={[styles.container, { backgroundColor: themeColors.bg }]} edges={['top']}>
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         refreshControl={
@@ -139,7 +140,7 @@ export const BeneficiaryHome: React.FC<BeneficiaryHomeProps> = ({ navigation }) 
       >
         <Ionicons name="camera" size={24} color="#FFFFFF" />
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 };
 

@@ -7,6 +7,7 @@ import {
   RefreshControl,
   TouchableOpacity,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { EvidenceCard } from '../../../components/EvidenceCard';
 import { Badge } from '../../../components/Badge';
@@ -55,7 +56,7 @@ export const OfficerDashboard: React.FC<OfficerDashboardProps> = ({ navigation }
   const counts = getCounts();
 
   return (
-    <View style={[styles.container, { backgroundColor: themeColors.bg }]}>
+    <SafeAreaView style={[styles.container, { backgroundColor: themeColors.bg }]} edges={['top']}>
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         refreshControl={
@@ -142,7 +143,7 @@ export const OfficerDashboard: React.FC<OfficerDashboardProps> = ({ navigation }
           )}
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 
