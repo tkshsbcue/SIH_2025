@@ -1,0 +1,451 @@
+{
+    "meta": {
+      "spec_version": "1.0.0",
+      "title": "Loan Utilization Tracker — React Native (Mobile-First)",
+      "author": "Cursor Prompt",
+      "description": "Production-quality, mobile-first React Native app spec for tracking loan utilization (beneficiary evidence uploads, officer review, offline sync, and simple AI validation placeholders). Designed for Expo-managed workflow, TypeScript, accessible UI, and a PhonePe-inspired clean mobile aesthetic.",
+      "framework": {
+        "name": "React Native (Expo)",
+        "typescript": true,
+        "navigation": "React Navigation (stack + bottom-tabs)",
+        "state_management": "Zustand",
+        "forms": "react-hook-form + zod"
+      }
+    },
+    "tech_stack": {
+      "base": "Expo (SDK), React Native, TypeScript",
+      "ui_kit": [
+        "shadcn-ui (adapted for React Native primitives / use shadcn design tokens)",
+        "react-native-heroicons or lucide-react-native (icons)",
+        "react-native-paper (only where native primitives help)",
+        "tailwindcss-react-native (utility classes mobile-first)"
+      ],
+      "state": "Zustand for global stores + React Query (optional) for sync state",
+      "forms": "react-hook-form + zod",
+      "navigation": "React Navigation (native-stack + bottom-tabs)",
+      "offline": "AsyncStorage (react-native-async-storage) + redux-offline pattern in Zustand + NetInfo for connectivity",
+      "media": "react-native-image-picker, react-native-video, react-native-geolocation-service (or Expo Location)",
+      "files": "react-native-fs or Expo FileSystem for local storage of evidence",
+      "notifications": "react-native-notifications or Expo Notifications for push; react-native-toast-message for in-app toasts",
+      "timers/animations": "Reanimated 2 + React Native Gesture Handler + Framer Motion for React Native (or simple Animated)",
+      "testing": "Jest + React Native Testing Library",
+      "lint/format": "ESLint, Prettier, TypeScript"
+    },
+    "design_language": {
+      "theme_name": "Accessible PhonePe-Inspired Mobile",
+      "palette": {
+        "bg": "#FFFFFF",
+        "surface": "#F7FAFF",
+        "primary": "#0066FF",
+        "accent": "#00A86B",
+        "warn": "#FFB020",
+        "error": "#EF4444",
+        "muted": "#6B7280",
+        "ink": "#0F172A"
+      },
+      "typography": {
+        "display": "Inter_600SemiBold (mobile headline)",
+        "body": "Inter_400Regular"
+      },
+      "mobile_guidelines": [
+        "Mobile-first, one-column vertical flow; compact touch targets (min 44x44).",
+        "High contrast for text and status badges; large tappable CTAs in bottom area.",
+        "Accessible forms (labels, helper text, aria-like accessibilityProps).",
+        "Micro-interactions: subtle elevation changes, pressed state scaling, and progress transitions.",
+        "Use clear affordances for offline vs synced items (icons + badges + progress).",
+        "Follow PhonePe’s clean spacing, rounded cards, and clear CTA hierarchy for trust."
+      ]
+    },
+    "app_structure": {
+      "root": {
+        "header": ["App Logo (left)", "Role Switcher / Profile (right)"],
+        "bottom_navigation": ["Beneficiaries (tab)", "Upload (tab)", "Officer (tab, role gated)", "Notifications"]
+      },
+      "screens": [
+        {
+          "name": "Auth/PhoneLogin",
+          "path": "Auth/PhoneLogin",
+          "purpose": "Phone number entry + OTP flow for beneficiaries (OTP mocked).",
+          "elements": ["Phone Input (shadcn Input)", "Send OTP button", "OTP entry screen (4/6 digits)", "Accessible errors & resend timer"]
+        },
+        {
+          "name": "Beneficiary/Home",
+          "path": "Beneficiary/Home",
+          "purpose": "Dashboard for beneficiaries showing active loans, expected evidence schedule, and quick upload CTA.",
+          "elements": [
+            "Loan summary card(s) with progress",
+            "Next expected upload timeline",
+            "Quick Upload floating button",
+            "Recent evidence list (thumbnail + sync status badge)"
+          ]
+        },
+        {
+          "name": "Upload/RecordEvidence",
+          "path": "Upload/RecordEvidence",
+          "purpose": "Capture photos/videos geo-tagged and timestamped; add optional notes and form fields.",
+          "elements": [
+            "Camera / Gallery picker (image or short video)",
+            "Auto-capture metadata: GPS coords, timestamp, device-id stub",
+            "Form fields: beneficiaryId (prefilled), loanId, amountSpent, notes",
+            "Popover with 'How to capture good evidence' instructions",
+            "Save draft (local) + Upload (sync) buttons with progress"
+          ]
+        },
+        {
+          "name": "Upload/SyncManager",
+          "path": "Upload/SyncManager",
+          "purpose": "Shows offline queue, per-item sync progress, manual retry, and last synced timestamp.",
+          "elements": ["Queue list, bulk sync button, per-item retry, connectivity indicator (NetInfo)"]
+        },
+        {
+          "name": "Officer/Login",
+          "path": "Officer/Login",
+          "purpose": "Officer authentication (simple username/password mock) and role access to officer portal.",
+          "elements": ["Input username, password, 2FA placeholder (mock)"]
+        },
+        {
+          "name": "Officer/Dashboard",
+          "path": "Officer/Dashboard",
+          "purpose": "Review panel with filters to track evidence uploads, flagged cases, and approval tasks.",
+          "elements": [
+            "Filter bar (state, district, loan status, upload age)",
+            "Counts strip (Pending, Flagged, Approved, Rejected)",
+            "List/Accordion of evidence items with thumbnails + badge for AI validation status",
+            "Quick action buttons: Approve, Reject, Flag for follow up"
+          ]
+        },
+        {
+          "name": "Officer/ReviewEvidence",
+          "path": "Officer/ReviewEvidence",
+          "purpose": "Modal/screen to view full evidence (media + metadata + timeline) and approve/reject with comments.",
+          "elements": [
+            "Full screen media viewer (image/video) with location map snapshot",
+            "Metadata panel: beneficiary, loanId, timestamp, GPS (with link to map)",
+            "AI validation stub badges & explanation popover",
+            "Approve/Reject dialog with comment input and Toast feedback"
+          ]
+        },
+        {
+          "name": "Notifications/Center",
+          "path": "Notifications/Center",
+          "purpose": "In-app notifications for reminders, approvals, and failures.",
+          "elements": ["Unread indicator, notification items, deep-link to evidence"]
+        },
+        {
+          "name": "Settings",
+          "path": "Settings",
+          "purpose": "Theme toggle, data usage controls (Wi-Fi only sync), privacy, and help.",
+          "elements": ["Light/Dark toggle (shadcn Toggle)", "Manual sync controls", "Logout"]
+        }
+      ]
+    },
+    "components": [
+      {
+        "name": "PhoneInputForm",
+        "purpose": "Phone entry + OTP flow",
+        "props": ["onSendOtp(phone)", "onVerify(otp)"],
+        "notes": "Use shadcn Input and Button styles; show accessible helper text and resend timer."
+      },
+      {
+        "name": "LoanCard",
+        "purpose": "Compact loan summary for beneficiary",
+        "props": ["loan", "onQuickUpload", "onViewDetails"],
+        "styles": "card with progress ring, small badges for next upload"
+      },
+      {
+        "name": "EvidenceCard",
+        "purpose": "Thumbnail + metadata for each evidence item",
+        "props": ["id", "media", "status", "timestamp", "location", "onOpen", "onRetry"],
+        "styles": "thumbnail left, details right, sync badge, long-press menu for delete/share"
+      },
+      {
+        "name": "CaptureWidget",
+        "purpose": "Unified camera + gallery picker",
+        "props": ["mode('photo'|'video')", "onCapture(media, metadata)"],
+        "notes": "Auto-capture GPS & timestamp; ask permissions gracefully."
+      },
+      {
+        "name": "SyncQueue",
+        "purpose": "List of queued items with progress and retry controls",
+        "props": ["queueItems", "onSyncAll", "onRetryItem"],
+        "visuals": "Progress bars and per-item icon indicators"
+      },
+      {
+        "name": "OfficerFilterBar",
+        "purpose": "Filters + quick search for officer dashboard",
+        "props": ["filters", "onChange"],
+        "notes": "Use Select, Input, Chips; sync filter state to deep-link params"
+      },
+      {
+        "name": "ReviewModal",
+        "purpose": "Review evidence in full with approve/reject",
+        "props": ["evidenceId", "onApprove(comment)", "onReject(comment)", "open"],
+        "notes": "Show map snapshot, AI validation stub, metadata, and comment input."
+      },
+      {
+        "name": "AIValidationBadge",
+        "purpose": "Shows automated validation outcome (stub)",
+        "props": ["status('pending'|'ok'|'flagged')", "explain"],
+        "notes": "Clickable to show reasoning popover (mocked)."
+      },
+      {
+        "name": "AccessibleToast",
+        "purpose": "In-app accessible toast messages",
+        "props": ["message", "type", "onClose"],
+        "notes": "aria-live region equivalent for RN (accessibilityLiveRegion)"
+      }
+    ],
+    "types": {
+      "Beneficiary": {
+        "id": "string",
+        "name": "string",
+        "phone": "string",
+        "loans": "string[] (loanIds)",
+        "avatarUrl": "string | null"
+      },
+      "Loan": {
+        "id": "string",
+        "beneficiaryId": "string",
+        "amount": "number",
+        "startDate": "string (ISO)",
+        "endDate": "string (ISO)",
+        "expectedUploadsEveryDays": "number",
+        "status": "\"active\"|\"completed\"|\"defaulted\""
+      },
+      "Evidence": {
+        "id": "string",
+        "loanId": "string",
+        "beneficiaryId": "string",
+        "mediaUri": "string",
+        "mediaType": "\"image\"|\"video\"",
+        "timestamp": "string (ISO)",
+        "location": "{ lat: number, lng: number }",
+        "deviceId": "string",
+        "notes": "string",
+        "syncStatus": "\"pending\"|\"syncing\"|\"synced\"|\"failed\"",
+        "aiValidation": "\"pending\"|\"ok\"|\"flagged\"",
+        "serverId": "string | null"
+      },
+      "Officer": {
+        "id": "string",
+        "name": "string",
+        "role": "\"state_officer\"|\"bank_officer\"",
+        "region": "string"
+      },
+      "NotificationItem": {
+        "id": "string",
+        "title": "string",
+        "body": "string",
+        "read": "boolean",
+        "deepLink": "string | null",
+        "createdAt": "string (ISO)"
+      }
+    },
+    "mock_services": {
+      "seed_strategy": "Deterministic faker seeded with 'loantrack' to generate beneficiaries, loans, and evidence stubs",
+      "modules": [
+        {
+          "name": "authService",
+          "functions": [
+            "sendOtp(phone): { success, otpStub } (otpStub for demo)",
+            "verifyOtp(phone, otp): { userSession }",
+            "officerLogin(username, password): { officerSession }"
+          ]
+        },
+        {
+          "name": "evidenceService",
+          "functions": [
+            "saveDraft(evidence): Evidence (stores to local AsyncStorage queue)",
+            "syncEvidence(evidenceId): Evidence (mock upload; toggles syncStatus)",
+            "listByLoan(loanId): Evidence[]",
+            "getById(id): Evidence",
+            "deleteDraft(id)"
+          ]
+        },
+        {
+          "name": "loanService",
+          "functions": [
+            "listLoansForBeneficiary(beneficiaryId): Loan[]",
+            "getLoan(id): Loan",
+            "createLoanForTesting(input): Loan"
+          ]
+        },
+        {
+          "name": "officerService",
+          "functions": [
+            "listEvidence(filters, pagination): EvidenceSummary[] (filter by region/status/date)",
+            "getEvidenceForReview(id): Evidence (full)",
+            "submitDecision(evidenceId, officerId, decision, comment): Evidence (updates status & timeline)"
+          ]
+        },
+        {
+          "name": "validationService",
+          "functions": [
+            "runAICheckStub(evidenceId): { status: 'ok'|'flagged'|'pending', reasons: string[] } (UI stub; no real AI)"
+          ]
+        }
+      ]
+    },
+    "ux_flows": {
+      "beneficiary_login": [
+        "Enter mobile number → Send OTP (mock) → Enter OTP → Signed in (persist session in AsyncStorage).",
+        "First open: request camera, storage, location permissions with friendly modal and explanation."
+      ],
+      "capture_and_store": [
+        "Beneficiary taps Upload → opens CaptureWidget → captures photo/video → metadata auto-attached (GPS + timestamp).",
+        "User fills quick form fields and taps 'Save & Sync' or 'Save Draft'.",
+        "If offline: evidence saved locally with syncStatus='pending' and shown in SyncManager queue."
+      ],
+      "sync_behavior": [
+        "App monitors NetInfo; when network returns, auto-sync attempts to upload queued items (configurable: auto/manual).",
+        "Per-upload progress shown and toasts notify success/failure; failed items keep retry controls."
+      ],
+      "officer_review": [
+        "Officer filters evidence list → opens ReviewModal → reads metadata + AIValidationBadge → Approve or Reject with comment.",
+        "Decision triggers a Toast and updates evidence server status in mock store; notification sent to beneficiary (in-app)."
+      ],
+      "timeline_and_alerts": [
+        "Loan timeline shows expected upload cadence; if expected upload missed, app triggers reminder notification and highlights loan in dashboard."
+      ]
+    },
+    "offline_strategy": {
+      "principles": [
+        "Primary store of drafts and queued uploads: AsyncStorage + local file paths (Expo FileSystem).",
+        "Maintain a sync queue with per-item exponential retry and manual override.",
+        "Indicate sync status with icons/badges and provide 'Upload now' and 'Retry' affordances.",
+        "Respect user toggle: 'Wi-Fi only' for sync to conserve data."
+      ]
+    },
+    "accessibility": {
+      "standards": "WCAG mobile best practices",
+      "requirements": [
+        "All touch targets ≥44x44 px.",
+        "Accessible labels on all inputs (accessibilityLabel) and role hints.",
+        "Screen reader friendly: announce upload success/failure, sync changes, and toast messages (accessibilityLiveRegion).",
+        "Keyboard input flows for form fields (where applicable on mobile keyboards).",
+        "Color contrast ratios meeting AA."
+      ]
+    },
+    "testing_ids": {
+      "selectors": [
+        "data-testid=phone-send-otp",
+        "data-testid=phone-verify-otp",
+        "data-testid=loan-card",
+        "data-testid=quick-upload",
+        "data-testid=capture-photo",
+        "data-testid=save-draft",
+        "data-testid=sync-all",
+        "data-testid=evidence-card",
+        "data-testid=officer-filter",
+        "data-testid=review-approve",
+        "data-testid=review-reject",
+        "data-testid=toggle-theme"
+      ]
+    },
+    "file_structure": {
+      "root": [
+        "App.tsx (entry)",
+        "app/navigation/index.tsx (navigation stacks + tabs)",
+        "app/screens/Auth/PhoneLogin.tsx",
+        "app/screens/Auth/OtpVerify.tsx",
+        "app/screens/Beneficiary/Home.tsx",
+        "app/screens/Upload/RecordEvidence.tsx",
+        "app/screens/Upload/SyncManager.tsx",
+        "app/screens/Officer/Login.tsx",
+        "app/screens/Officer/Dashboard.tsx",
+        "app/screens/Officer/ReviewEvidence.tsx",
+        "app/screens/Notifications/Center.tsx",
+        "app/screens/Settings.tsx",
+        "components/* (PhoneInputForm, LoanCard, EvidenceCard, CaptureWidget, SyncQueue, ReviewModal, AIValidationBadge, AccessibleToast)",
+        "lib/services/*.ts (authService, evidenceService, loanService, officerService, validationService)",
+        "lib/stores/*.ts (zustand stores: authStore, syncStore, loanStore)",
+        "lib/hooks/*.ts (useNetInfoSync, usePermissions, useCamera)",
+        "lib/types.ts",
+        "assets/* (placeholder images, icons)",
+        "tests/*.test.tsx"
+      ]
+    },
+    "seed_data_examples": {
+      "beneficiaries": [
+        {
+          "id": "ben_001",
+          "name": "Asha Devi",
+          "phone": "+919876543210",
+          "loans": ["loan_100"],
+          "avatarUrl": "/assets/avatar-female-1.png"
+        }
+      ],
+      "loans": [
+        {
+          "id": "loan_100",
+          "beneficiaryId": "ben_001",
+          "amount": 50000,
+          "startDate": "2025-06-01T00:00:00.000Z",
+          "endDate": "2026-06-01T00:00:00.000Z",
+          "expectedUploadsEveryDays": 30,
+          "status": "active"
+        }
+      ],
+      "evidence": [
+        {
+          "id": "ev_900",
+          "loanId": "loan_100",
+          "beneficiaryId": "ben_001",
+          "mediaUri": "/assets/mock-receipt.jpg",
+          "mediaType": "image",
+          "timestamp": "2025-07-02T08:30:00.000Z",
+          "location": { "lat": 19.0760, "lng": 72.8777 },
+          "deviceId": "demo-device-1",
+          "notes": "Purchased sewing machine (partial)",
+          "syncStatus": "synced",
+          "aiValidation": "ok",
+          "serverId": "srv_ev_900"
+        }
+      ]
+    },
+    "copy": {
+      "brand": "LoanSight (demo)",
+      "tagline": "Transparent evidence. Faster approvals.",
+      "hero_ctas": ["I'm a Beneficiary", "I'm an Officer"],
+      "microcopy": {
+        "upload_help_title": "How to capture evidence",
+        "upload_help_bullets": [
+          "Show the invoice/receipt clearly.",
+          "Include the purchased asset in frame.",
+          "Capture one close shot and one contextual shot.",
+          "Ensure GPS is enabled for automatic location tagging."
+        ]
+      }
+    },
+    "acceptance_criteria": [
+      "App boots in Expo with no TypeScript errors.",
+      "Phone login + OTP flow works (mocked) and persists session in AsyncStorage.",
+      "Beneficiary can capture image/video evidence; metadata (location, timestamp) auto-attaches.",
+      "Offline queue stores drafts locally and displays in SyncManager; manual and auto-sync work with mocked upload.",
+      "Officer portal lists evidence with filters; officer can open review modal and Approve/Reject (mock), with comment persisted.",
+      "AI validation badges show stubbed statuses and can be toggled/expanded to show mock reasoning.",
+      "Loan timeline shows expected upload cadence and highlights missing uploads with reminders.",
+      "All interactive elements have accessible labels and toasts are announced to screen readers.",
+      "Theme toggle switches between light and dark themes across the app."
+    ],
+    "commands_for_devs": [
+      "expo init loan-sight --template expo-template-blank-typescript",
+      "yarn add react-navigation @react-navigation/native @react-navigation/native-stack @react-navigation/bottom-tabs react-native-gesture-handler react-native-reanimated",
+      "yarn add zustand react-hook-form zod react-native-async-storage/async-storage @react-native-community/netinfo",
+      "yarn add react-native-image-picker react-native-video react-native-geolocation-service expo-file-system",
+      "yarn add react-native-toast-message react-native-vector-icons",
+      "yarn add -D typescript eslint prettier jest @testing-library/react-native",
+      "Set up Expo permissions and configure app.json for required device permissions (camera, location, storage).",
+      "Implement mock services under lib/services and a deterministic seeding file using 'loantrack' seed.",
+      "Wire zustand stores for auth, syncQueue, loans, and officer actions.",
+      "Build screens and components per file_structure, add data-testid attributes, and ensure mobile accessibility.",
+      "Add NetInfo-based background sync and manual SyncManager UI.",
+      "Implement simple unit tests for core flows (login, capture, saveDraft, sync)."
+    ],
+    "notes": {
+      "ai_integration": "AI checks are UI stubs; design integration points (validationService.runAICheckStub) to replace with real ML endpoints later.",
+      "privacy": "Store only minimal PII locally and display permission rationale before requesting location/camera/storage.",
+      "philosophy": "Mobile-first, accessible, and frictionless evidence capture — prioritize quick success paths for beneficiaries and clear, efficient review flows for officers."
+    }
+  }
+  

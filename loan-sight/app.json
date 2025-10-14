@@ -1,0 +1,58 @@
+{
+  "expo": {
+    "name": "LoanSight",
+    "slug": "loan-sight",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0066FF"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.loansight.app",
+      "infoPlist": {
+        "NSCameraUsageDescription": "LoanSight needs camera access to capture evidence photos and videos.",
+        "NSPhotoLibraryUsageDescription": "LoanSight needs photo library access to select evidence images.",
+        "NSLocationWhenInUseUsageDescription": "LoanSight needs your location to verify evidence authenticity."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0066FF"
+      },
+      "package": "com.loansight.app",
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "LoanSight needs access to your photos to upload evidence."
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "LoanSight needs your location to verify evidence authenticity."
+        }
+      ]
+    ]
+  }
+}
