@@ -71,7 +71,7 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({ navigati
         {notifications.length === 0 ? (
           <View style={styles.emptyState}>
             <Ionicons name="notifications-off-outline" size={64} color={themeColors.muted} />
-            <Text style={[styles.emptyText, { color: themeColors.muted }]}>
+            <Text style={[styles.emptyText, { color: themeColors.mutedForeground }]}>
               No notifications yet
             </Text>
           </View>
@@ -93,17 +93,17 @@ export const NotificationCenter: React.FC<NotificationCenterProps> = ({ navigati
                     <Ionicons
                       name={notification.read ? 'mail-open-outline' : 'mail-unread-outline'}
                       size={24}
-                      color={notification.read ? themeColors.muted : themeColors.primary}
+                      color={notification.read ? themeColors.mutedForeground : themeColors.primary}
                     />
                   </View>
                   <View style={styles.notificationContent}>
                     <Text style={[styles.notificationTitle, { color: themeColors.ink }]}>
                       {notification.title}
                     </Text>
-                    <Text style={[styles.notificationBody, { color: themeColors.muted }]}>
+                    <Text style={[styles.notificationBody, { color: themeColors.mutedForeground }]}>
                       {notification.body}
                     </Text>
-                    <Text style={[styles.notificationTime, { color: themeColors.muted }]}>
+                    <Text style={[styles.notificationTime, { color: themeColors.mutedForeground }]}>
                       {formatDate(notification.createdAt)}
                     </Text>
                   </View>

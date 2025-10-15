@@ -74,7 +74,7 @@ export const SyncManager: React.FC<SyncManagerProps> = ({ navigation }) => {
               size={20}
               color={isConnected ? themeColors.success : themeColors.error}
             />
-            <Text style={[styles.connectionText, { color: themeColors.muted }]}>
+            <Text style={[styles.connectionText, { color: themeColors.mutedForeground }]}>
               {isConnected ? `Connected (${connectionType})` : 'Offline'}
             </Text>
           </View>
@@ -85,7 +85,7 @@ export const SyncManager: React.FC<SyncManagerProps> = ({ navigation }) => {
             <Text style={[styles.statValue, { color: themeColors.ink }]}>
               {queue.length}
             </Text>
-            <Text style={[styles.statLabel, { color: themeColors.muted }]}>
+            <Text style={[styles.statLabel, { color: themeColors.mutedForeground }]}>
               Total Items
             </Text>
           </View>
@@ -94,7 +94,7 @@ export const SyncManager: React.FC<SyncManagerProps> = ({ navigation }) => {
             <Text style={[styles.statValue, { color: themeColors.warn }]}>
               {pendingCount}
             </Text>
-            <Text style={[styles.statLabel, { color: themeColors.muted }]}>
+            <Text style={[styles.statLabel, { color: themeColors.mutedForeground }]}>
               Pending
             </Text>
           </View>
@@ -103,7 +103,7 @@ export const SyncManager: React.FC<SyncManagerProps> = ({ navigation }) => {
             <Text style={[styles.statValue, { color: themeColors.success }]}>
               {queue.filter(e => e.syncStatus === 'synced').length}
             </Text>
-            <Text style={[styles.statLabel, { color: themeColors.muted }]}>
+            <Text style={[styles.statLabel, { color: themeColors.mutedForeground }]}>
               Synced
             </Text>
           </View>
@@ -124,7 +124,7 @@ export const SyncManager: React.FC<SyncManagerProps> = ({ navigation }) => {
           {queue.length === 0 ? (
             <View style={styles.emptyState}>
               <Ionicons name="cloud-done-outline" size={64} color={themeColors.muted} />
-              <Text style={[styles.emptyText, { color: themeColors.muted }]}>
+              <Text style={[styles.emptyText, { color: themeColors.mutedForeground }]}>
                 No items in queue
               </Text>
             </View>
@@ -133,7 +133,7 @@ export const SyncManager: React.FC<SyncManagerProps> = ({ navigation }) => {
               <EvidenceCard
                 key={evidence.id}
                 evidence={evidence}
-                onOpen={() => navigation.navigate('EvidenceDetail', { evidenceId: evidence.id })}
+                onOpen={() => navigation.navigate('ReviewEvidence', { evidenceId: evidence.id })}
                 onRetry={() => handleRetry(evidence.id)}
               />
             ))
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
   },
   statDivider: {
     width: 1,
-    backgroundColor: '#E5E7EB',
+    backgroundColor: '#F4F4F5',
   },
   syncButton: {
     marginBottom: spacing.lg,

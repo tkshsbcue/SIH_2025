@@ -33,7 +33,7 @@ export const Card: React.FC<CardProps> = ({ children, style, elevation = 'md' })
 const styles = StyleSheet.create({
   card: {
     padding: spacing.md,
-    borderRadius: borderRadius.lg,
+    borderRadius: borderRadius.md,
     borderWidth: 1,
   },
 });

@@ -70,7 +70,7 @@ export const AIValidationBadge: React.FC<AIValidationBadgeProps> = ({
       <TouchableOpacity onPress={() => setShowModal(true)}>
         <View style={styles.container}>
           <Badge label={`AI: ${status.toUpperCase()}`} variant={getVariant()} />
-          <Ionicons name="information-circle-outline" size={18} color={themeColors.primary} />
+          <Ionicons name="information-circle-outline" size={18} color={themeColors.mutedForeground} />
         </View>
       </TouchableOpacity>
 

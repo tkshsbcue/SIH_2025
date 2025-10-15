@@ -72,7 +72,7 @@ export const Settings: React.FC<SettingsProps> = ({ navigation }) => {
                 <Text style={[styles.settingLabel, { color: themeColors.ink }]}>
                   Dark Mode
                 </Text>
-                <Text style={[styles.settingDescription, { color: themeColors.muted }]}>
+                <Text style={[styles.settingDescription, { color: themeColors.mutedForeground }]}>
                   Switch between light and dark theme
                 </Text>
               </View>
@@ -96,7 +96,7 @@ export const Settings: React.FC<SettingsProps> = ({ navigation }) => {
                 <Text style={[styles.settingLabel, { color: themeColors.ink }]}>
                   WiFi Only Sync
                 </Text>
-                <Text style={[styles.settingDescription, { color: themeColors.muted }]}>
+                <Text style={[styles.settingDescription, { color: themeColors.mutedForeground }]}>
                   Only sync when connected to WiFi
                 </Text>
               </View>
@@ -116,7 +116,7 @@ export const Settings: React.FC<SettingsProps> = ({ navigation }) => {
           <View style={styles.infoRow}>
             <Ionicons name="person-circle-outline" size={24} color={themeColors.muted} />
             <View style={styles.infoText}>
-              <Text style={[styles.infoLabel, { color: themeColors.muted }]}>
+              <Text style={[styles.infoLabel, { color: themeColors.mutedForeground }]}>
                 Role
               </Text>
               <Text style={[styles.infoValue, { color: themeColors.ink }]}>
@@ -129,7 +129,7 @@ export const Settings: React.FC<SettingsProps> = ({ navigation }) => {
             <View style={styles.infoRow}>
               <Ionicons name="call-outline" size={24} color={themeColors.muted} />
               <View style={styles.infoText}>
-                <Text style={[styles.infoLabel, { color: themeColors.muted }]}>
+                <Text style={[styles.infoLabel, { color: themeColors.mutedForeground }]}>
                   Phone
                 </Text>
                 <Text style={[styles.infoValue, { color: themeColors.ink }]}>
@@ -152,7 +152,7 @@ export const Settings: React.FC<SettingsProps> = ({ navigation }) => {
             About
           </Text>
           <View style={styles.aboutRow}>
-            <Text style={[styles.aboutLabel, { color: themeColors.muted }]}>
+            <Text style={[styles.aboutLabel, { color: themeColors.mutedForeground }]}>
               App Name
             </Text>
             <Text style={[styles.aboutValue, { color: themeColors.ink }]}>
@@ -160,7 +160,7 @@ export const Settings: React.FC<SettingsProps> = ({ navigation }) => {
             </Text>
           </View>
           <View style={styles.aboutRow}>
-            <Text style={[styles.aboutLabel, { color: themeColors.muted }]}>
+            <Text style={[styles.aboutLabel, { color: themeColors.mutedForeground }]}>
               Version
             </Text>
             <Text style={[styles.aboutValue, { color: themeColors.ink }]}>

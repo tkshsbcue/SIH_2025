@@ -108,11 +108,11 @@ export const CaptureWidget: React.FC<CaptureWidgetProps> = ({
   return (
     <Card style={styles.container}>
       <View style={styles.header}>
-        <Ionicons name="camera" size={32} color={themeColors.primary} />
+        <Ionicons name="camera" size={32} color={themeColors.ink} />
         <Text style={[styles.title, { color: themeColors.ink }]}>
           Capture Evidence
         </Text>
-        <Text style={[styles.subtitle, { color: themeColors.muted }]}>
+        <Text style={[styles.subtitle, { color: themeColors.mutedForeground }]}>
           Take a photo or select from gallery
         </Text>
       </View>
@@ -143,9 +143,9 @@ export const CaptureWidget: React.FC<CaptureWidgetProps> = ({
         />
       </View>
 
-      <View style={[styles.infoBox, { backgroundColor: themeColors.surface, borderColor: themeColors.border }]}>
-        <Ionicons name="information-circle" size={20} color={themeColors.primary} />
-        <Text style={[styles.infoText, { color: themeColors.muted }]}>
+      <View style={[styles.infoBox, { backgroundColor: themeColors.muted, borderColor: themeColors.border }]}>
+        <Ionicons name="information-circle" size={20} color={themeColors.mutedForeground} />
+        <Text style={[styles.infoText, { color: themeColors.mutedForeground }]}>
           Location and timestamp will be automatically added
         </Text>
       </View>
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
     height: 200,
     borderRadius: borderRadius.md,
     marginBottom: spacing.md,
-    backgroundColor: '#E5E7EB',
+    backgroundColor: '#F4F4F5',
   },
   buttons: {
     gap: spacing.sm,

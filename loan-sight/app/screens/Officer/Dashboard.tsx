@@ -65,7 +65,7 @@ export const OfficerDashboard: React.FC<OfficerDashboardProps> = ({ navigation }
       >
         <View style={styles.header}>
           <View>
-            <Text style={[styles.greeting, { color: themeColors.muted }]}>
+            <Text style={[styles.greeting, { color: themeColors.mutedForeground }]}>
               Officer Portal
             </Text>
             <Text style={[styles.title, { color: themeColors.ink }]}>
@@ -82,7 +82,7 @@ export const OfficerDashboard: React.FC<OfficerDashboardProps> = ({ navigation }
             <Text style={[styles.countValue, { color: themeColors.ink }]}>
               {counts.total}
             </Text>
-            <Text style={[styles.countLabel, { color: themeColors.muted }]}>
+            <Text style={[styles.countLabel, { color: themeColors.mutedForeground }]}>
               Total
             </Text>
           </Card>
@@ -90,7 +90,7 @@ export const OfficerDashboard: React.FC<OfficerDashboardProps> = ({ navigation }
             <Text style={[styles.countValue, { color: themeColors.warn }]}>
               {counts.pending}
             </Text>
-            <Text style={[styles.countLabel, { color: themeColors.muted }]}>
+            <Text style={[styles.countLabel, { color: themeColors.mutedForeground }]}>
               Pending
             </Text>
           </Card>
@@ -98,7 +98,7 @@ export const OfficerDashboard: React.FC<OfficerDashboardProps> = ({ navigation }
             <Text style={[styles.countValue, { color: themeColors.error }]}>
               {counts.flagged}
             </Text>
-            <Text style={[styles.countLabel, { color: themeColors.muted }]}>
+            <Text style={[styles.countLabel, { color: themeColors.mutedForeground }]}>
               Flagged
             </Text>
           </Card>
@@ -106,7 +106,7 @@ export const OfficerDashboard: React.FC<OfficerDashboardProps> = ({ navigation }
             <Text style={[styles.countValue, { color: themeColors.success }]}>
               {counts.synced}
             </Text>
-            <Text style={[styles.countLabel, { color: themeColors.muted }]}>
+            <Text style={[styles.countLabel, { color: themeColors.mutedForeground }]}>
               Synced
             </Text>
           </Card>
@@ -114,7 +114,7 @@ export const OfficerDashboard: React.FC<OfficerDashboardProps> = ({ navigation }
 
         <View style={[styles.filterBar, { backgroundColor: themeColors.surface, borderColor: themeColors.border }]}>
           <Ionicons name="filter" size={20} color={themeColors.primary} />
-          <Text style={[styles.filterText, { color: themeColors.muted }]}>
+          <Text style={[styles.filterText, { color: themeColors.mutedForeground }]}>
             Filters
           </Text>
           <TouchableOpacity onPress={() => setFilters({})}>
@@ -128,7 +128,7 @@ export const OfficerDashboard: React.FC<OfficerDashboardProps> = ({ navigation }
           {evidenceList.length === 0 ? (
             <View style={styles.emptyState}>
               <Ionicons name="document-text-outline" size={64} color={themeColors.muted} />
-              <Text style={[styles.emptyText, { color: themeColors.muted }]}>
+              <Text style={[styles.emptyText, { color: themeColors.mutedForeground }]}>
                 No evidence to review
               </Text>
             </View>

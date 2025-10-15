@@ -68,7 +68,7 @@ export const BeneficiaryHome: React.FC<BeneficiaryHomeProps> = ({ navigation }) 
       >
         <View style={styles.header}>
           <View>
-            <Text style={[styles.greeting, { color: themeColors.muted }]}>
+            <Text style={[styles.greeting, { color: themeColors.mutedForeground }]}>
               Welcome back!
             </Text>
             <Text style={[styles.title, { color: themeColors.ink }]}>
@@ -82,8 +82,8 @@ export const BeneficiaryHome: React.FC<BeneficiaryHomeProps> = ({ navigation }) 
 
         {loans.length === 0 ? (
           <View style={styles.emptyState}>
-            <Ionicons name="document-text-outline" size={64} color={themeColors.muted} />
-            <Text style={[styles.emptyText, { color: themeColors.muted }]}>
+            <Ionicons name="document-text-outline" size={64} color={themeColors.mutedForeground} />
+            <Text style={[styles.emptyText, { color: themeColors.mutedForeground }]}>
               No active loans found
             </Text>
           </View>
@@ -113,9 +113,9 @@ export const BeneficiaryHome: React.FC<BeneficiaryHomeProps> = ({ navigation }) 
               </View>
 
               {recentEvidence.length === 0 ? (
-                <View style={[styles.infoBox, { backgroundColor: themeColors.surface, borderColor: themeColors.border }]}>
-                  <Ionicons name="information-circle" size={20} color={themeColors.primary} />
-                  <Text style={[styles.infoText, { color: themeColors.muted }]}>
+                <View style={[styles.infoBox, { backgroundColor: themeColors.muted, borderColor: themeColors.border }]}>
+                  <Ionicons name="information-circle" size={20} color={themeColors.mutedForeground} />
+                  <Text style={[styles.infoText, { color: themeColors.mutedForeground }]}>
                     No evidence uploaded yet. Tap "Quick Upload" to get started.
                   </Text>
                 </View>
@@ -124,7 +124,7 @@ export const BeneficiaryHome: React.FC<BeneficiaryHomeProps> = ({ navigation }) 
                   <EvidenceCard
                     key={evidence.id}
                     evidence={evidence}
-                    onOpen={() => navigation.navigate('EvidenceDetail', { evidenceId: evidence.id })}
+                    onOpen={() => navigation.navigate('ReviewEvidence', { evidenceId: evidence.id })}
                   />
                 ))
               )}
@@ -138,7 +138,7 @@ export const BeneficiaryHome: React.FC<BeneficiaryHomeProps> = ({ navigation }) 
         onPress={() => navigation.navigate('RecordEvidence', { loanId: loans[0]?.id })}
         testID="quick-upload"
       >
-        <Ionicons name="camera" size={24} color="#FFFFFF" />
+        <Ionicons name="camera" size={24} color={themeColors.primaryForeground} />
       </TouchableOpacity>
     </SafeAreaView>
   );

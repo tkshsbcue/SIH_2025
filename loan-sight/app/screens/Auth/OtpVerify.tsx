@@ -91,7 +91,7 @@ export const OtpVerify: React.FC<OtpVerifyProps> = ({ navigation, route }) => {
           <Text style={[styles.title, { color: themeColors.ink }]}>
             Verify OTP
           </Text>
-          <Text style={[styles.subtitle, { color: themeColors.muted }]}>
+          <Text style={[styles.subtitle, { color: themeColors.mutedForeground }]}>
             Enter the 6-digit code sent to{'\n'}
             {phone}
           </Text>
@@ -118,7 +118,7 @@ export const OtpVerify: React.FC<OtpVerifyProps> = ({ navigation, route }) => {
 
           <View style={styles.timerContainer}>
             {timer > 0 ? (
-              <Text style={[styles.timerText, { color: themeColors.muted }]}>
+              <Text style={[styles.timerText, { color: themeColors.mutedForeground }]}>
                 Resend OTP in {timer}s
               </Text>
             ) : (

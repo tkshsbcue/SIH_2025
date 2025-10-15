@@ -63,14 +63,14 @@ export const PhoneLogin: React.FC<PhoneLoginProps> = ({ navigation }) => {
         <View style={styles.header}>
           <Ionicons name="shield-checkmark" size={64} color={themeColors.primary} />
           <Text style={[styles.appName, { color: themeColors.ink }]}>{APP_NAME}</Text>
-          <Text style={[styles.tagline, { color: themeColors.muted }]}>{APP_TAGLINE}</Text>
+          <Text style={[styles.tagline, { color: themeColors.mutedForeground }]}>{APP_TAGLINE}</Text>
         </View>
 
         <Card style={styles.card}>
           <Text style={[styles.title, { color: themeColors.ink }]}>
             Beneficiary Login
           </Text>
-          <Text style={[styles.subtitle, { color: themeColors.muted }]}>
+          <Text style={[styles.subtitle, { color: themeColors.mutedForeground }]}>
             Enter your phone number to receive an OTP
           </Text>
 
@@ -94,7 +94,7 @@ export const PhoneLogin: React.FC<PhoneLoginProps> = ({ navigation }) => {
 
           <View style={[styles.infoBox, { backgroundColor: themeColors.surface, borderColor: themeColors.border }]}>
             <Ionicons name="information-circle" size={20} color={themeColors.primary} />
-            <Text style={[styles.infoText, { color: themeColors.muted }]}>
+            <Text style={[styles.infoText, { color: themeColors.mutedForeground }]}>
               Demo: Use +919876543210 or any number from the list
             </Text>
           </View>

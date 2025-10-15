@@ -90,21 +90,21 @@ export const EvidenceCard: React.FC<EvidenceCardProps> = ({
 
             <View style={styles.metadata}>
               <View style={styles.metaItem}>
-                <Ionicons name="time-outline" size={14} color={themeColors.muted} />
-                <Text style={[styles.metaText, { color: themeColors.muted }]}>
+                <Ionicons name="time-outline" size={14} color={themeColors.mutedForeground} />
+                <Text style={[styles.metaText, { color: themeColors.mutedForeground }]}>
                   {formatDate(evidence.timestamp)}
                 </Text>
               </View>
               <View style={styles.metaItem}>
-                <Ionicons name="location-outline" size={14} color={themeColors.muted} />
-                <Text style={[styles.metaText, { color: themeColors.muted }]}>
+                <Ionicons name="location-outline" size={14} color={themeColors.mutedForeground} />
+                <Text style={[styles.metaText, { color: themeColors.mutedForeground }]}>
                   {evidence.location.lat.toFixed(4)}, {evidence.location.lng.toFixed(4)}
                 </Text>
               </View>
               {evidence.amountSpent && (
                 <View style={styles.metaItem}>
-                  <Ionicons name="cash-outline" size={14} color={themeColors.muted} />
-                  <Text style={[styles.metaText, { color: themeColors.muted }]}>
+                  <Ionicons name="cash-outline" size={14} color={themeColors.mutedForeground} />
+                  <Text style={[styles.metaText, { color: themeColors.mutedForeground }]}>
                     ₹{evidence.amountSpent.toLocaleString('en-IN')}
                   </Text>
                 </View>
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: borderRadius.md,
-    backgroundColor: '#E5E7EB',
+    backgroundColor: '#F4F4F5',
   },
   content: {
     flex: 1,

@@ -72,10 +72,13 @@ export const ReviewEvidence: React.FC<ReviewEvidenceProps> = ({ navigation, rout
     }
   };
 
+  // Check if user is an officer (has permission to approve/reject)
+  const isOfficer = !!session?.officerId;
+
   if (!evidence) {
     return (
       <View style={[styles.container, { backgroundColor: themeColors.bg }]}>
-        <Text style={[styles.loadingText, { color: themeColors.muted }]}>
+        <Text style={[styles.loadingText, { color: themeColors.mutedForeground }]}>
           Loading...
         </Text>
       </View>
@@ -113,7 +116,7 @@ export const ReviewEvidence: React.FC<ReviewEvidenceProps> = ({ navigation, rout
             <View style={styles.detailRow}>
               <Ionicons name="document-text-outline" size={20} color={themeColors.muted} />
               <View style={styles.detailContent}>
-                <Text style={[styles.detailLabel, { color: themeColors.muted }]}>
+                <Text style={[styles.detailLabel, { color: themeColors.mutedForeground }]}>
                   Evidence ID
                 </Text>
                 <Text style={[styles.detailValue, { color: themeColors.ink }]}>
@@ -125,7 +128,7 @@ export const ReviewEvidence: React.FC<ReviewEvidenceProps> = ({ navigation, rout
             <View style={styles.detailRow}>
               <Ionicons name="time-outline" size={20} color={themeColors.muted} />
               <View style={styles.detailContent}>
-                <Text style={[styles.detailLabel, { color: themeColors.muted }]}>
+                <Text style={[styles.detailLabel, { color: themeColors.mutedForeground }]}>
                   Timestamp
                 </Text>
                 <Text style={[styles.detailValue, { color: themeColors.ink }]}>
@@ -137,7 +140,7 @@ export const ReviewEvidence: React.FC<ReviewEvidenceProps> = ({ navigation, rout
             <View style={styles.detailRow}>
               <Ionicons name="location-outline" size={20} color={themeColors.muted} />
               <View style={styles.detailContent}>
-                <Text style={[styles.detailLabel, { color: themeColors.muted }]}>
+                <Text style={[styles.detailLabel, { color: themeColors.mutedForeground }]}>
                   Location
                 </Text>
                 <Text style={[styles.detailValue, { color: themeColors.ink }]}>
@@ -150,7 +153,7 @@ export const ReviewEvidence: React.FC<ReviewEvidenceProps> = ({ navigation, rout
               <View style={styles.detailRow}>
                 <Ionicons name="cash-outline" size={20} color={themeColors.muted} />
                 <View style={styles.detailContent}>
-                  <Text style={[styles.detailLabel, { color: themeColors.muted }]}>
+                  <Text style={[styles.detailLabel, { color: themeColors.mutedForeground }]}>
                     Amount Spent
                   </Text>
                   <Text style={[styles.detailValue, { color: themeColors.ink }]}>
@@ -162,7 +165,7 @@ export const ReviewEvidence: React.FC<ReviewEvidenceProps> = ({ navigation, rout
 
             {evidence.notes && (
               <View style={styles.notesContainer}>
-                <Text style={[styles.detailLabel, { color: themeColors.muted }]}>
+                <Text style={[styles.detailLabel, { color: themeColors.mutedForeground }]}>
                   Notes
                 </Text>
                 <Text style={[styles.notesText, { color: themeColors.ink }]}>
@@ -180,28 +183,40 @@ export const ReviewEvidence: React.FC<ReviewEvidenceProps> = ({ navigation, rout
           </View>
         </Card>
 
-        <View style={styles.actions}>
-          <Button
-            title="Approve"
-            onPress={() => {
-              setDecision('approved');
-              setShowDecisionModal(true);
-            }}
-            variant="primary"
-            style={styles.actionButton}
-            testID="review-approve"
-          />
-          <Button
-            title="Reject"
-            onPress={() => {
-              setDecision('rejected');
-              setShowDecisionModal(true);
-            }}
-            variant="outline"
-            style={styles.actionButton}
-            testID="review-reject"
-          />
-        </View>
+        {/* Only show approve/reject buttons for officers */}
+        {isOfficer ? (
+          <View style={styles.actions}>
+            <Button
+              title="Approve"
+              onPress={() => {
+                setDecision('approved');
+                setShowDecisionModal(true);
+              }}
+              variant="primary"
+              style={styles.actionButton}
+              testID="review-approve"
+            />
+            <Button
+              title="Reject"
+              onPress={() => {
+                setDecision('rejected');
+                setShowDecisionModal(true);
+              }}
+              variant="outline"
+              style={styles.actionButton}
+              testID="review-reject"
+            />
+          </View>
+        ) : (
+          <Card style={styles.infoCard}>
+            <View style={styles.infoRow}>
+              <Ionicons name="information-circle" size={24} color={themeColors.mutedForeground} />
+              <Text style={[styles.infoText, { color: themeColors.mutedForeground }]}>
+                You are viewing this evidence. Only loan officers can approve or reject evidence.
+              </Text>
+            </View>
+          </Card>
+        )}
       </ScrollView>
 
       <Modal
@@ -267,7 +282,7 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: 300,
-    backgroundColor: '#E5E7EB',
+    backgroundColor: '#F4F4F5',
   },
   section: {
     marginBottom: spacing.lg,
@@ -332,6 +347,18 @@ const styles = StyleSheet.create({
     marginTop: spacing.md,
   },
   modalButton: {
+    flex: 1,
+  },
+  infoCard: {
+    marginTop: spacing.md,
+  },
+  infoRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+  },
+  infoText: {
+    ...typography.bodySmall,
     flex: 1,
   },
 });

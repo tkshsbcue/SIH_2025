@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Card } from './Card';
 import { Badge } from './Badge';
 import { Loan } from '../lib/types';
-import { colors, spacing, typography } from '../lib/utils/theme';
+import { colors, spacing, typography, borderRadius } from '../lib/utils/theme';
 import { useThemeStore } from '../lib/stores/themeStore';
 
 interface LoanCardProps {
@@ -49,21 +49,21 @@ export const LoanCard: React.FC<LoanCardProps> = ({
         </View>
         {onViewDetails && (
           <TouchableOpacity onPress={onViewDetails}>
-            <Ionicons name="chevron-forward" size={24} color={themeColors.muted} />
+            <Ionicons name="chevron-forward" size={24} color={themeColors.mutedForeground} />
           </TouchableOpacity>
         )}
       </View>
 
       <View style={styles.amountContainer}>
-        <Text style={[styles.amount, { color: themeColors.primary }]}>
+        <Text style={[styles.amount, { color: themeColors.ink }]}>
           {formatCurrency(loan.amount)}
         </Text>
       </View>
 
       <View style={styles.infoRow}>
         <View style={styles.infoItem}>
-          <Ionicons name="calendar-outline" size={16} color={themeColors.muted} />
-          <Text style={[styles.infoText, { color: themeColors.muted }]}>
+          <Ionicons name="calendar-outline" size={16} color={themeColors.mutedForeground} />
+          <Text style={[styles.infoText, { color: themeColors.mutedForeground }]}>
             Next upload in {loan.expectedUploadsEveryDays} days
           </Text>
         </View>
@@ -71,12 +71,14 @@ export const LoanCard: React.FC<LoanCardProps> = ({
 
       {onQuickUpload && (
         <TouchableOpacity
-          style={[styles.uploadButton, { backgroundColor: themeColors.primary }]}
+          style={[styles.uploadButton, { 
+            backgroundColor: themeColors.primary,
+          }]}
           onPress={onQuickUpload}
           testID="quick-upload"
         >
-          <Ionicons name="camera" size={20} color="#FFFFFF" />
-          <Text style={styles.uploadButtonText}>Quick Upload</Text>
+          <Ionicons name="camera" size={20} color={themeColors.primaryForeground} />
+          <Text style={[styles.uploadButtonText, { color: themeColors.primaryForeground }]}>Quick Upload</Text>
         </TouchableOpacity>
       )}
     </Card>
@@ -122,13 +124,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: spacing.sm + 2,
-    borderRadius: 8,
+    borderRadius: borderRadius.md,
     gap: spacing.xs,
   },
   uploadButtonText: {
-    ...typography.body,
-    color: '#FFFFFF',
-    fontWeight: '600',
+    ...typography.bodySmall,
+    fontWeight: '500',
   },
 });
 

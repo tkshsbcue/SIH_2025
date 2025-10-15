@@ -151,13 +151,13 @@ export const RecordEvidence: React.FC<RecordEvidenceProps> = ({ navigation, rout
             <View style={[styles.metadataBox, { backgroundColor: themeColors.surface, borderColor: themeColors.border }]}>
               <View style={styles.metadataItem}>
                 <Ionicons name="location" size={16} color={themeColors.muted} />
-                <Text style={[styles.metadataText, { color: themeColors.muted }]}>
+                <Text style={[styles.metadataText, { color: themeColors.mutedForeground }]}>
                   {metadata.location.lat.toFixed(4)}, {metadata.location.lng.toFixed(4)}
                 </Text>
               </View>
               <View style={styles.metadataItem}>
                 <Ionicons name="time" size={16} color={themeColors.muted} />
-                <Text style={[styles.metadataText, { color: themeColors.muted }]}>
+                <Text style={[styles.metadataText, { color: themeColors.mutedForeground }]}>
                   {new Date(metadata.timestamp).toLocaleString()}
                 </Text>
               </View>

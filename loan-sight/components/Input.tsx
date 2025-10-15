@@ -42,18 +42,18 @@ export const Input: React.FC<InputProps> = ({
         style={[
           styles.input,
           {
-            backgroundColor: themeColors.surface,
-            borderColor: error ? themeColors.error : themeColors.border,
+            backgroundColor: themeColors.bg,
+            borderColor: error ? themeColors.error : themeColors.input,
             color: themeColors.ink,
           },
           style,
         ]}
-        placeholderTextColor={themeColors.muted}
+        placeholderTextColor={themeColors.mutedForeground}
         {...rest}
       />
       {error && <Text style={[styles.errorText, { color: themeColors.error }]}>{error}</Text>}
       {helperText && !error && (
-        <Text style={[styles.helperText, { color: themeColors.muted }]}>{helperText}</Text>
+        <Text style={[styles.helperText, { color: themeColors.mutedForeground }]}>{helperText}</Text>
       )}
     </View>
   );

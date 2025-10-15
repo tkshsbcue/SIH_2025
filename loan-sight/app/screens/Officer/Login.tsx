@@ -68,7 +68,7 @@ export const OfficerLogin: React.FC<OfficerLoginProps> = ({ navigation }) => {
         <View style={styles.header}>
           <Ionicons name="shield-checkmark" size={64} color={themeColors.primary} />
           <Text style={[styles.appName, { color: themeColors.ink }]}>{APP_NAME}</Text>
-          <Text style={[styles.subtitle, { color: themeColors.muted }]}>
+          <Text style={[styles.subtitle, { color: themeColors.mutedForeground }]}>
             Officer Portal
           </Text>
         </View>
@@ -109,10 +109,10 @@ export const OfficerLogin: React.FC<OfficerLoginProps> = ({ navigation }) => {
               <Text style={[styles.demoText, { color: themeColors.ink }]}>
                 Demo Credentials:
               </Text>
-              <Text style={[styles.demoDetail, { color: themeColors.muted }]}>
+              <Text style={[styles.demoDetail, { color: themeColors.mutedForeground }]}>
                 Username: priyasharma
               </Text>
-              <Text style={[styles.demoDetail, { color: themeColors.muted }]}>
+              <Text style={[styles.demoDetail, { color: themeColors.mutedForeground }]}>
                 Password: officer123
               </Text>
             </View>

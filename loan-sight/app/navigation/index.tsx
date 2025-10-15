@@ -43,7 +43,7 @@ function BeneficiaryTabs() {
           return <Ionicons name={iconName} size={size} color={color} />;
         },
         tabBarActiveTintColor: themeColors.primary,
-        tabBarInactiveTintColor: themeColors.muted,
+        tabBarInactiveTintColor: themeColors.mutedForeground,
         tabBarStyle: {
           backgroundColor: themeColors.bg,
           borderTopColor: themeColors.border,
@@ -96,7 +96,7 @@ function OfficerTabs() {
           return <Ionicons name={iconName} size={size} color={color} />;
         },
         tabBarActiveTintColor: themeColors.primary,
-        tabBarInactiveTintColor: themeColors.muted,
+        tabBarInactiveTintColor: themeColors.mutedForeground,
         tabBarStyle: {
           backgroundColor: themeColors.bg,
           borderTopColor: themeColors.border,

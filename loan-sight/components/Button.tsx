@@ -34,25 +34,25 @@ export const Button: React.FC<ButtonProps> = ({
 
   const getButtonStyle = (): ViewStyle => {
     const baseStyle: ViewStyle = {
-      paddingVertical: spacing.md,
-      paddingHorizontal: spacing.lg,
+      paddingVertical: spacing.sm + 4,
+      paddingHorizontal: spacing.md + 4,
       borderRadius: borderRadius.md,
       alignItems: 'center',
       justifyContent: 'center',
-      minHeight: 48,
+      minHeight: 44,
     };
 
     switch (variant) {
       case 'primary':
         return { ...baseStyle, backgroundColor: themeColors.primary };
       case 'secondary':
-        return { ...baseStyle, backgroundColor: themeColors.accent };
+        return { ...baseStyle, backgroundColor: themeColors.secondary };
       case 'outline':
         return {
           ...baseStyle,
           backgroundColor: 'transparent',
-          borderWidth: 2,
-          borderColor: themeColors.primary,
+          borderWidth: 1,
+          borderColor: themeColors.input,
         };
       case 'ghost':
         return { ...baseStyle, backgroundColor: 'transparent' };
@@ -64,16 +64,18 @@ export const Button: React.FC<ButtonProps> = ({
   const getTextStyle = (): TextStyle => {
     const baseStyle: TextStyle = {
       ...typography.body,
-      fontWeight: '600',
+      fontWeight: '500',
     };
 
     switch (variant) {
       case 'primary':
+        return { ...baseStyle, color: themeColors.primaryForeground };
       case 'secondary':
-        return { ...baseStyle, color: '#FFFFFF' };
+        return { ...baseStyle, color: themeColors.secondaryForeground };
       case 'outline':
+        return { ...baseStyle, color: themeColors.ink };
       case 'ghost':
-        return { ...baseStyle, color: themeColors.primary };
+        return { ...baseStyle, color: themeColors.ink };
       default:
         return baseStyle;
     }
@@ -92,7 +94,7 @@ export const Button: React.FC<ButtonProps> = ({
       testID={testID}
     >
       {loading ? (
-        <ActivityIndicator color={variant === 'outline' || variant === 'ghost' ? themeColors.primary : '#FFFFFF'} />
+        <ActivityIndicator color={variant === 'primary' ? themeColors.primaryForeground : themeColors.ink} />
       ) : (
         <Text style={getTextStyle()}>{title}</Text>
       )}
